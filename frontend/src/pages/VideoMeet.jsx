@@ -483,13 +483,43 @@ export default function VideoMeetComponent() {
             
             {askForUsername === true ?
                  <Box sx={{ display: 'flex', height: '100%', alignItems: 'center', justifyContent: 'center', background: 'linear-gradient(135deg, #121212 0%, #1E1E2E 100%)' }}>
-                    <Paper elevation={10} sx={{ p: 5, borderRadius: 4, textAlign: 'center', display: 'flex', flexDirection: 'column', gap: 3 }}>
-                       <Typography variant="h4" fontWeight="bold">Join Lobby</Typography>
-                       <Box sx={{ width: '300px', height: '200px', bgcolor: '#000', borderRadius: 2, overflow: 'hidden', position: 'relative' }}>
+                    <Paper elevation={10} sx={{ 
+                        p: 5, 
+                        borderRadius: 4, 
+                        textAlign: 'center', 
+                        display: 'flex', 
+                        flexDirection: 'column', 
+                        gap: 3, 
+                        bgcolor: 'rgba(255,255,255,0.05)', 
+                        backdropFilter: 'blur(10px)', 
+                        border: '1px solid rgba(255,255,255,0.1)',
+                        minWidth: '400px'
+                    }}>
+                       <Typography variant="h4" fontWeight="bold" sx={{ color: 'white' }}>Join Lobby</Typography>
+                       <Box sx={{ width: '100%', height: '250px', bgcolor: '#000', borderRadius: 2, overflow: 'hidden', position: 'relative', border: '1px solid rgba(255,255,255,0.2)' }}>
                             <video ref={localVideoref} autoPlay muted style={{ width: '100%', height: '100%', objectFit: 'cover' }}></video>
+                            
+                            <Box sx={{ position: 'absolute', bottom: 10, left: '50%', transform: 'translateX(-50%)', display: 'flex', gap: 2 }}>
+                                <IconButton onClick={handleVideo} sx={{ color: 'white', bgcolor: !video ? 'error.main' : 'rgba(255,255,255,0.2)', '&:hover': { bgcolor: !video ? 'error.dark' : 'rgba(255,255,255,0.4)' } }}>
+                                    {video ? <VideocamIcon /> : <VideocamOffIcon />}
+                                </IconButton>
+                                <IconButton onClick={handleAudio} sx={{ color: 'white', bgcolor: !audio ? 'error.main' : 'rgba(255,255,255,0.2)', '&:hover': { bgcolor: !audio ? 'error.dark' : 'rgba(255,255,255,0.4)' } }}>
+                                    {audio ? <MicIcon /> : <MicOffIcon />}
+                                </IconButton>
+                            </Box>
                        </Box>
-                        <TextField label="Enter your name" value={username} onChange={e => setUsername(e.target.value)} fullWidth autoFocus />
-                        <Button variant="contained" size="large" onClick={connect} disabled={!username}>Connect</Button>
+                        <TextField 
+                            label="Enter your name" 
+                            variant="filled"
+                            value={username} 
+                            onChange={e => setUsername(e.target.value)} 
+                            fullWidth 
+                            autoFocus 
+                            InputLabelProps={{ style: { color: 'rgba(255,255,255,0.7)' } }}
+                            inputProps={{ style: { color: 'white' } }}
+                            sx={{ bgcolor: 'rgba(255,255,255,0.05)', borderRadius: 1 }}
+                        />
+                        <Button variant="contained" size="large" onClick={connect} disabled={!username} sx={{ py: 1.5, fontSize: '1.1rem' }}>Connect</Button>
                     </Paper>
                  </Box> 
                  :

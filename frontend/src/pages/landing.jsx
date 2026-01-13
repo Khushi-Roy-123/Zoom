@@ -6,6 +6,7 @@ import SecurityIcon from '@mui/icons-material/Security';
 import SpeedIcon from '@mui/icons-material/Speed';
 import GroupsIcon from '@mui/icons-material/Groups';
 import StarIcon from '@mui/icons-material/Star';
+import { motion } from 'framer-motion';
 
 export default function LandingPage() {
     const router = useNavigate();
@@ -49,7 +50,11 @@ export default function LandingPage() {
     return (
         <Box sx={{ minHeight: '100vh', position: 'relative', overflowX: 'hidden', bgcolor: '#0f0c29' }}>
             {/* Background Decorations */}
-            <Box sx={{
+            <Box component={motion.div} 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 1 }}
+                sx={{
                 position: 'fixed',
                 top: -100,
                 left: -100,
@@ -61,7 +66,11 @@ export default function LandingPage() {
                 filter: 'blur(50px)',
                 pointerEvents: 'none'
             }} />
-             <Box sx={{
+             <Box component={motion.div} 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 1, delay: 0.5 }}
+                sx={{
                 position: 'fixed',
                 bottom: -100,
                 right: -100,
@@ -103,7 +112,7 @@ export default function LandingPage() {
             {/* Hero Section */}
             <Container maxWidth="lg" sx={{ mt: 10, mb: 15, position: 'relative', zIndex: 1 }}>
                 <Grid container spacing={6} alignItems="center">
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={12} md={6} component={motion.div} initial={{ x: -50, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ duration: 0.8 }}>
                         <Typography variant="h1" gutterBottom sx={{ 
                             background: 'linear-gradient(45deg, #FFFFFF 30%, #6C63FF 90%)',
                             WebkitBackgroundClip: 'text',
@@ -127,7 +136,7 @@ export default function LandingPage() {
                         </Box>
                     </Grid>
                     
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={12} md={6} component={motion.div} initial={{ x: 50, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ duration: 0.8 }}>
                         <Paper elevation={0} sx={{ 
                             p: 2, 
                             borderRadius: 4, 
@@ -149,13 +158,24 @@ export default function LandingPage() {
             {/* Features Section */}
             <Box sx={{ py: 10, bgcolor: 'rgba(0,0,0,0.2)' }}>
                 <Container maxWidth="lg">
-                    <Typography variant="h3" align="center" gutterBottom fontWeight="bold" sx={{ mb: 6 }}>
+                    <Typography component={motion.div} 
+                        initial={{ y: 30, opacity: 0 }} 
+                        whileInView={{ y: 0, opacity: 1 }} 
+                        viewport={{ once: true }} 
+                        transition={{ duration: 0.5 }}
+                        variant="h3" align="center" gutterBottom fontWeight="bold" sx={{ mb: 6 }}
+                    >
                         Why Choose Us?
                     </Typography>
                     <Grid container spacing={4}>
                         {features.map((feature, index) => (
                             <Grid item xs={12} sm={6} md={3} key={index}>
-                                <Card sx={{ 
+                                <Card component={motion.div}
+                                    initial={{ y: 30, opacity: 0 }}
+                                    whileInView={{ y: 0, opacity: 1 }}
+                                    viewport={{ once: true }}
+                                    transition={{ delay: index * 0.1, duration: 0.5 }}
+                                    sx={{ 
                                     height: '100%', 
                                     bgcolor: 'rgba(255,255,255,0.05)', 
                                     border: '1px solid rgba(255,255,255,0.1)',
@@ -176,26 +196,32 @@ export default function LandingPage() {
 
             {/* How It Works Section */}
             <Container maxWidth="lg" sx={{ py: 10 }}>
-                <Typography variant="h3" align="center" gutterBottom fontWeight="bold" sx={{ mb: 6 }}>
+                <Typography component={motion.div} 
+                    initial={{ y: 30, opacity: 0 }} 
+                    whileInView={{ y: 0, opacity: 1 }} 
+                    viewport={{ once: true }} 
+                    transition={{ duration: 0.5 }}
+                    variant="h3" align="center" gutterBottom fontWeight="bold" sx={{ mb: 6 }}
+                >
                     How It Works
                 </Typography>
                 <Grid container spacing={4} sx={{ textAlign: 'center' }}>
                     <Grid item xs={12} md={4}>
-                        <Box sx={{ position: 'relative', p: 3 }}>
+                        <Box component={motion.div} initial={{ scale: 0.8, opacity: 0 }} whileInView={{ scale: 1, opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.2 }} sx={{ position: 'relative', p: 3 }}>
                             <Typography variant="h1" sx={{ color: 'rgba(108, 99, 255, 0.2)', fontWeight: 900 }}>01</Typography>
                             <Typography variant="h5" fontWeight="bold" sx={{ mt: -3, position: 'relative' }}>Create Account</Typography>
                             <Typography color="text.secondary" sx={{ mt: 2 }}>Sign up for free in seconds. No credit card required.</Typography>
                         </Box>
                     </Grid>
                     <Grid item xs={12} md={4}>
-                        <Box sx={{ position: 'relative', p: 3 }}>
+                        <Box component={motion.div} initial={{ scale: 0.8, opacity: 0 }} whileInView={{ scale: 1, opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.4 }} sx={{ position: 'relative', p: 3 }}>
                             <Typography variant="h1" sx={{ color: 'rgba(255, 101, 132, 0.2)', fontWeight: 900 }}>02</Typography>
                             <Typography variant="h5" fontWeight="bold" sx={{ mt: -3, position: 'relative' }}>Start Meeting</Typography>
                             <Typography color="text.secondary" sx={{ mt: 2 }}>Create a meeting room and share the link instantly.</Typography>
                         </Box>
                     </Grid>
                     <Grid item xs={12} md={4}>
-                         <Box sx={{ position: 'relative', p: 3 }}>
+                         <Box component={motion.div} initial={{ scale: 0.8, opacity: 0 }} whileInView={{ scale: 1, opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.6 }} sx={{ position: 'relative', p: 3 }}>
                             <Typography variant="h1" sx={{ color: 'rgba(76, 175, 80, 0.2)', fontWeight: 900 }}>03</Typography>
                             <Typography variant="h5" fontWeight="bold" sx={{ mt: -3, position: 'relative' }}>Connect</Typography>
                             <Typography color="text.secondary" sx={{ mt: 2 }}>Jump into high-quality video calls with friends or colleagues.</Typography>
@@ -207,13 +233,25 @@ export default function LandingPage() {
             {/* Testimonials Section */}
              <Box sx={{ py: 10, bgcolor: 'rgba(255,255,255,0.02)' }}>
                 <Container maxWidth="md">
-                    <Typography variant="h3" align="center" fontWeight="bold" gutterBottom sx={{ mb: 6 }}>
+                    <Typography component={motion.div} 
+                        initial={{ y: 30, opacity: 0 }} 
+                        whileInView={{ y: 0, opacity: 1 }} 
+                        viewport={{ once: true }} 
+                        transition={{ duration: 0.5 }}
+                        variant="h3" align="center" fontWeight="bold" gutterBottom sx={{ mb: 6 }}
+                    >
                         What Users Say
                     </Typography>
                     <Grid container spacing={4}>
                         {testimonials.map((t, i) => (
                             <Grid item xs={12} md={6} key={i}>
-                                <Paper sx={{ p: 4, bgcolor: 'rgba(255,255,255,0.03)', borderRadius: 4 }}>
+                                <Paper component={motion.div} 
+                                    initial={{ x: i % 2 === 0 ? -50 : 50, opacity: 0 }} 
+                                    whileInView={{ x: 0, opacity: 1 }} 
+                                    viewport={{ once: true }} 
+                                    transition={{ duration: 0.6 }}
+                                    sx={{ p: 4, bgcolor: 'rgba(255,255,255,0.03)', borderRadius: 4 }}
+                                >
                                     <Box sx={{ display: 'flex', mb: 2, color: '#FFC107' }}>
                                         {[...Array(5)].map((_, idx) => <StarIcon key={idx} fontSize="small" />)}
                                     </Box>

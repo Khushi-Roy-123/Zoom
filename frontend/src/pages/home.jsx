@@ -10,6 +10,8 @@ import VideoCallIcon from '@mui/icons-material/VideoCall';
 import HistoryIcon from '@mui/icons-material/History';
 import { AuthContext } from '../contexts/AuthContext';
 
+import { motion } from 'framer-motion';
+
 function HomeComponent() {
     let navigate = useNavigate();
     const [meetingCode, setMeetingCode] = useState("");
@@ -28,10 +30,31 @@ function HomeComponent() {
          navigate(`/${randomCode}`)
     }
 
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: { 
+            opacity: 1,
+            transition: { staggerChildren: 0.2 }
+        }
+    };
+
+    const itemVariants = {
+        hidden: { y: 20, opacity: 0 },
+        visible: { 
+            y: 0, 
+            opacity: 1,
+            transition: { duration: 0.5 }
+        }
+    };
+
     return (
         <Box sx={{ minHeight: '100vh', bgcolor: 'background.default' }}>
             {/* Navbar */}
-            <Box sx={{ 
+            <Box component={motion.div} 
+                initial={{ y: -50, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.5 }}
+                sx={{ 
                 display: 'flex', 
                 justifyContent: 'space-between', 
                 alignItems: 'center', 
@@ -67,9 +90,9 @@ function HomeComponent() {
             </Box>
 
             <Container maxWidth="md" sx={{ mt: 8 }}>
-                <Grid container spacing={4}>
+                <Grid container spacing={4} component={motion.div} variants={containerVariants} initial="hidden" animate="visible">
                     {/* Welcome Section */}
-                    <Grid item xs={12} sx={{ textAlign: 'center', mb: 4 }}>
+                    <Grid item xs={12} sx={{ textAlign: 'center', mb: 4 }} component={motion.div} variants={itemVariants}>
                         <Typography variant="h3" fontWeight="bold" gutterBottom>
                             Ready to Connect?
                         </Typography>
@@ -79,7 +102,7 @@ function HomeComponent() {
                     </Grid>
 
                     {/* Action Cards */}
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={12} md={6} component={motion.div} variants={itemVariants}>
                         <Paper sx={{ 
                             p: 4, 
                             height: '100%', 
@@ -91,7 +114,7 @@ function HomeComponent() {
                             background: 'linear-gradient(135deg, rgba(108, 99, 255, 0.1) 0%, rgba(108, 99, 255, 0.05) 100%)',
                             border: '1px solid rgba(108, 99, 255, 0.2)',
                             transition: 'transform 0.2s',
-                            '&:hover': { transform: 'translateY(-5px)', borderColor: 'primary.main' }
+                            '&:hover': { transform: 'translateY(-5px)', borderColor: 'primary.main', boxShadow: '0 8px 30px rgba(108, 99, 255, 0.2)' }
                         }}>
                             <AddBoxIcon sx={{ fontSize: 60, color: 'primary.main' }} />
                             <Typography variant="h5" fontWeight="bold">New Meeting</Typography>
@@ -104,7 +127,7 @@ function HomeComponent() {
                         </Paper>
                     </Grid>
 
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={12} md={6} component={motion.div} variants={itemVariants}>
                          <Paper sx={{ 
                             p: 4, 
                             height: '100%', 
@@ -116,7 +139,7 @@ function HomeComponent() {
                             background: 'rgba(255, 255, 255, 0.03)',
                             border: '1px solid rgba(255, 255, 255, 0.1)',
                             transition: 'transform 0.2s',
-                             '&:hover': { transform: 'translateY(-5px)', borderColor: 'rgba(255, 255, 255, 0.3)' }
+                             '&:hover': { transform: 'translateY(-5px)', borderColor: 'rgba(255, 255, 255, 0.3)', boxShadow: '0 8px 30px rgba(0, 0, 0, 0.5)' }
                         }}>
                              <MeetingRoomIcon sx={{ fontSize: 60, color: 'secondary.main' }} />
                             <Typography variant="h5" fontWeight="bold">Join Meeting</Typography>

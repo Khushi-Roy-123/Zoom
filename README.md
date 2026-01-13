@@ -68,7 +68,11 @@ cd backend
 npm install
 ```
 
-- Create a `.env` file (optional, defaults to port 8000 and local mongo) or update `src/app.js` with your MongoDB URL if using Atlas.
+- **(Required)** Create a `.env` file in the `backend` directory:
+  ```env
+  MONGO_URL=your_mongodb_connection_string
+  PORT=8000
+  ```
 - **Start the Server**:
   ```bash
   npm run dev
