@@ -1,106 +1,155 @@
-# Zoom Clone
+# ⚠️ Learning Project
 
-> **Note**: This project is a **Learning Initiative** developed to explore full-stack web development, real-time communication technologies, and modern UI/UX design.
+This project was built as a hands-on learning initiative to deeply understand full-stack development, real-time communication, WebRTC, and production deployment workflows.
 
-A premium video conferencing application connecting people with high-quality video, secure authentication, and interactive features.
+A modern Zoom-like video conferencing platform that enables users to connect through high-quality video/audio, real-time interactions, and a premium dark glassmorphism UI.
 
-![Landing Page Preview](landing_preview.png)
+## 🌍 Live Demo
+
+### 🚀 Frontend (Vercel)
+
+👉 [https://zoom-idqf-hf6digmrn-khushi-roys-projects-81ea4e18.vercel.app/](https://zoom-idqf-hf6digmrn-khushi-roys-projects-81ea4e18.vercel.app/)
+
+### ⚙️ Backend (Render)
+
+👉 [https://zoom-2-bnqp.onrender.com](https://zoom-2-bnqp.onrender.com)
+
+_(Backend may take a few seconds to wake up on first request due to free-tier hosting)_
+
+## 🖼️ Preview
 
 ## 🚀 Tech Stack
 
-- **Frontend**:
-  - **React.js**: Component-based UI architecture.
-  - **Material UI (MUI)**: For accessible and responsive components.
-  - **CSS Modules**: Custom styling for the "Dark Glassmorphism" aesthetic.
-- **Backend**:
-  - **Node.js & Express.js**: Robust REST API architecture.
-  - **Socket.io**: Real-time bidirectional event-based communication.
-- **Database**:
-  - **MongoDB**: NoSQL database for flexible user data management.
-- **Core Technology**:
-  - **WebRTC**: Enabling peer-to-peer audio and video streaming.
+### 🧩 Frontend
 
-## 🎯 Challenges Faced & Solved
+- **React.js** – Component-based UI architecture
+- **Material UI (MUI)** – Accessible, responsive, and customizable UI components
+- **CSS Modules** – Scoped styling for a clean Dark Glassmorphism aesthetic
 
-Building this real-time application involved overcoming several complex technical challenges:
+### 🛠 Backend
 
-1.  **Mesh Network Implementation**:
+- **Node.js & Express.js** – RESTful API and server logic
+- **Socket.io** – Real-time bi-directional communication
 
-    - _Challenge_: Managing multiple peer-to-peer connections in a group call without overloading the client.
-    - _Solution_: Implemented a robust signaling server using Socket.io to coordinate SDP offers/answers and ICE candidates efficiently.
+### 🗄 Database
 
-2.  **Real-Time Synchronization**:
+- **MongoDB (Atlas)** – NoSQL database for flexible user & meeting data
 
-    - _Challenge_: Syncing state changes like "Raise Hand" or "Mute" across all users instantly.
-    - _Solution_: Designed a custom socket event system (`meeting-interaction`) to broadcast state deltas with low latency.
+### 🔗 Core Technology
 
-3.  **Modern UI Design**:
+- **WebRTC** – Peer-to-peer video & audio streaming
 
-    - _Challenge_: Moving away from generic Bootstrap/Tailwind looks to create a unique "Dark Glassmorphism" feel.
-    - _Solution_: Heavily customized Material UI themes and global CSS to implement backdrop filters, gradients, and floating control docks.
+## 🌟 Key Features
 
-4.  **Device Resource Management**:
-    - _Challenge_: Handling camera/microphone locking issues when multiple components try to access media streams.
-    - _Solution_: Refactored media permission logic into a centralized handler that requests unified access streams.
+- 🎥 **HD Video & Audio Calls**
+- 🔗 **Real-Time Peer-to-Peer Communication**
+- 🙋 **Raise Hand & Emoji Reactions**
+- 🖥 **Screen Sharing**
+- 🔐 **Secure Authentication**
+- 🌙 **Premium Dark UI with Glassmorphism**
+- 📱 **Fully Responsive Design**
 
-## 🛠️ How to Run Locally
+## 🎯 Challenges Faced & Solutions
 
-Follow these steps to get the application running on your machine.
+### 1️⃣ Mesh Network Implementation
 
-### Prerequisites
+**Challenge:**
+Managing multiple peer-to-peer connections without overloading the client.
 
-- Node.js (v14+)
-- MongoDB (Local or Atlas URL)
+**Solution:**
+Built a Socket.io-based signaling server to efficiently exchange SDP offers/answers and ICE candidates.
 
-### 1. Clone the Repository
+### 2️⃣ Real-Time State Synchronization
+
+**Challenge:**
+Instantly syncing actions like mute, raise hand, and reactions across all users.
+
+**Solution:**
+Designed a custom socket event system (`meeting-interaction`) that broadcasts only state deltas for low-latency updates.
+
+### 3️⃣ Modern UI/UX Design
+
+**Challenge:**
+Avoiding generic UI frameworks while building a premium-looking interface.
+
+**Solution:**
+Deep customization of Material UI themes combined with CSS effects like blur, gradients, and floating control docks.
+
+### 4️⃣ Media Device Resource Management
+
+**Challenge:**
+Camera/microphone locking issues due to multiple access requests.
+
+**Solution:**
+Centralized media stream handling to ensure unified and conflict-free device access.
+
+## 🛠️ Run Locally
+
+### ✅ Prerequisites
+
+- Node.js v14+
+- MongoDB (Local or Atlas)
+
+### 1️⃣ Clone the Repository
 
 ```bash
 git clone https://github.com/Khushi-Roy-123/Zoom.git
 cd Zoom
 ```
 
-### 2. Backend Setup
-
-Open a terminal and navigate to the backend folder:
+### 2️⃣ Backend Setup
 
 ```bash
 cd backend
 npm install
 ```
 
-- **(Required)** Create a `.env` file in the `backend` directory:
-  ```env
-  MONGO_URL=your_mongodb_connection_string
-  PORT=8000
-  ```
-- **Start the Server**:
-  ```bash
-  npm run dev
-  ```
-  _Server runs on http://localhost:8000_
+Create a `.env` file inside `backend/`:
 
-### 3. Frontend Setup
+```env
+MONGO_URL=your_mongodb_connection_string
+PORT=8000
+```
 
-Open a new terminal and navigate to the frontend folder:
+Start the backend:
+
+```bash
+npm run dev
+```
+
+Backend runs at: `http://localhost:8000`
+
+### 3️⃣ Frontend Setup
 
 ```bash
 cd frontend
 npm install
+npm start
 ```
 
-- **Start the Client**:
-  ```bash
-  npm start
-  ```
-  _App opens at http://localhost:3000_
+Frontend runs at: `http://localhost:3000`
 
-## 🌟 Key Features
+## 🚀 Deployment
 
-- **HD Video & Audio**: Crystal clear peer-to-peer streaming.
-- **Interactive Controls**: Raise Hand, Emoji Reactions, and Screen Sharing.
-- **Secure Auth**: User registration and login.
-- **Premium UI**: Fully responsive dark mode with glassmorphism effects.
+- Frontend deployed on **Vercel**
+- Backend deployed on **Render**
+- Environment variables used to support production-ready configuration
+- No hardcoded localhost usage in production
 
----
+## 📌 What I Learned
 
-_Built with ❤️ for learning and community._
+- Real-time communication using WebRTC & Socket.io
+- Full-stack project structuring
+- Environment-based deployments
+- Debugging production issues (CORS, env vars, hosting limits)
+- Building scalable, clean UI systems
+
+## ❤️ Acknowledgements
+
+Built with passion, curiosity, and countless debugging sessions ☕
+This project represents my growth as a Full-Stack Developer.
+
+## 👩‍💻 Author
+
+**Khushi Roy**
+CSE (AI & ML) | Web Developer | AI Enthusiast
