@@ -79,6 +79,22 @@ export const connectToSocket = (server) => {
 
         })
 
+        socket.on("meeting-interaction", (data) => {
+            const [matchingRoom, found] = Object.entries(connections)
+                .reduce(([room, isFound], [roomKey, roomValue]) => {
+                    if (!isFound && roomValue.includes(socket.id)) {
+                        return [roomKey, true];
+                    }
+                    return [room, isFound];
+                }, ['', false]);
+
+            if (found === true) {
+                // Broadcast to everyone in the room INCLUDING the sender (so they see their own animation if handled that way, 
+                // though usually frontend handles local immediate feedback. We'll broadcast to all for simplicity/consistency)
+                io.to(matchingRoom).emit("meeting-interaction", data, socket.id);
+            }
+        })
+
         socket.on("disconnect", () => {
 
             var diffTime = Math.abs(timeOnline[socket.id] - new Date())

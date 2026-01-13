@@ -2,6 +2,8 @@ import './App.css';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import LandingPage from './pages/landing';
 import Authentication from './pages/authentication';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import theme from './theme';
 import { AuthProvider } from './contexts/AuthContext';
 import VideoMeetComponent from './pages/VideoMeet';
 import HomeComponent from './pages/home';
@@ -14,6 +16,7 @@ function App() {
       <Router>
 
         <AuthProvider>
+            <ThemeProvider theme={theme}>
 
 
           <Routes>
@@ -22,10 +25,11 @@ function App() {
 
             <Route path='/auth' element={<Authentication />} />
 
-            <Route path='/home's element={<HomeComponent />} />
+            <Route path='/home' element={<HomeComponent />} />
             <Route path='/history' element={<History />} />
             <Route path='/:url' element={<VideoMeetComponent />} />
           </Routes>
+          </ThemeProvider>
         </AuthProvider>
 
       </Router>
