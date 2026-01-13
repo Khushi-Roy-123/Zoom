@@ -39,9 +39,9 @@ export default function VideoMeetComponent() {
 
     let [audioAvailable, setAudioAvailable] = useState(true);
 
-    let [video, setVideo] = useState([]);
+    let [video, setVideo] = useState(true);
 
-    let [audio, setAudio] = useState();
+    let [audio, setAudio] = useState(true);
 
     let [screen, setScreen] = useState();
 
@@ -73,7 +73,7 @@ export default function VideoMeetComponent() {
         console.log("HELLO")
         getPermissions();
 
-    })
+    }, [])
 
     let getDisplayMedia = () => {
         if (screen) {
@@ -116,19 +116,13 @@ export default function VideoMeetComponent() {
         }
     };
 
-    useEffect(() => {
-        if (video !== undefined && audio !== undefined) {
-            getUserMedia();
-            console.log("SET STATE HAS ", video, audio);
+    // Removed the useEffect that re-triggered getUserMedia on state change.
+    // Media is acquired once in getPermissions.
 
-        }
-    }, [video, audio])
-    
     let getMedia = () => {
         setVideo(videoAvailable);
         setAudio(audioAvailable);
         connectToSocketServer();
-
     }
 
     let getUserMediaSuccess = (stream) => {
@@ -293,7 +287,7 @@ export default function VideoMeetComponent() {
                         let videoExists = videoRef.current.find(video => video.socketId === socketListId);
 
                         if (videoExists) {
-                            console.log("FOUND EXISTING");
+                            console.log("FOUND existing");
 
                             // Update the stream of the existing video
                             setVideos(videos => {
@@ -412,12 +406,26 @@ export default function VideoMeetComponent() {
     }
 
     let handleVideo = () => {
-        setVideo(!video);
-        // getUserMedia();
+        const newState = !video; // Toggle state
+        setVideo(newState);
+        
+        if (window.localStream) {
+            const videoTrack = window.localStream.getVideoTracks()[0];
+            if (videoTrack) {
+                videoTrack.enabled = newState;
+            }
+        }
     }
     let handleAudio = () => {
-        setAudio(!audio)
-        // getUserMedia();
+        const newState = !audio; // Toggle state
+        setAudio(newState);
+        
+        if (window.localStream) {
+            const audioTrack = window.localStream.getAudioTracks()[0];
+            if (audioTrack) {
+                audioTrack.enabled = newState;
+            }
+        }
     }
 
     useEffect(() => {
