@@ -4,9 +4,9 @@ This project was built as a hands-on learning initiative to deeply understand fu
 
 A modern Zoom-like video conferencing platform that enables users to connect through high-quality video/audio, real-time interactions, and a premium dark glassmorphism UI.
 
-## 🌍 Live Demo
+##  Live Demo
 
-### 🚀 Frontend (Vercel)
+###  Frontend (Vercel)
 
 👉 [https://zoom-idqf-hf6digmrn-khushi-roys-projects-81ea4e18.vercel.app/](https://zoom-idqf-hf6digmrn-khushi-roys-projects-81ea4e18.vercel.app/)
 
@@ -16,40 +16,42 @@ A modern Zoom-like video conferencing platform that enables users to connect thr
 
 _(Backend may take a few seconds to wake up on first request due to free-tier hosting)_
 
-## 🖼️ Preview
+##  Preview
 
-## 🚀 Tech Stack
+![App Preview](./landing_preview.png)
 
-### 🧩 Frontend
+##  Tech Stack
+
+###  Frontend
 
 - **React.js** – Component-based UI architecture
 - **Material UI (MUI)** – Accessible, responsive, and customizable UI components
 - **CSS Modules** – Scoped styling for a clean Dark Glassmorphism aesthetic
 
-### 🛠 Backend
+###  Backend
 
 - **Node.js & Express.js** – RESTful API and server logic
 - **Socket.io** – Real-time bi-directional communication
 
-### 🗄 Database
+###  Database
 
 - **MongoDB (Atlas)** – NoSQL database for flexible user & meeting data
 
-### 🔗 Core Technology
+###  Core Technology
 
 - **WebRTC** – Peer-to-peer video & audio streaming
 
-## 🌟 Key Features
+##  Key Features
 
-- 🎥 **HD Video & Audio Calls**
-- 🔗 **Real-Time Peer-to-Peer Communication**
-- 🙋 **Raise Hand & Emoji Reactions**
-- 🖥 **Screen Sharing**
-- 🔐 **Secure Authentication**
-- 🌙 **Premium Dark UI with Glassmorphism**
-- 📱 **Fully Responsive Design**
+-  **HD Video & Audio Calls**
+-  **Real-Time Peer-to-Peer Communication**
+-  **Raise Hand & Emoji Reactions**
+-  **Screen Sharing**
+-  **Secure Authentication**
+-  **Premium Dark UI with Glassmorphism**
+-  **Fully Responsive Design**
 
-## 🎯 Challenges Faced & Solutions
+##  Challenges Faced & Solutions
 
 ### 1️⃣ Mesh Network Implementation
 
@@ -83,9 +85,9 @@ Camera/microphone locking issues due to multiple access requests.
 **Solution:**
 Centralized media stream handling to ensure unified and conflict-free device access.
 
-## 🛠️ Run Locally
+##  Run Locally
 
-### ✅ Prerequisites
+### Prerequisites
 
 - Node.js v14+
 - MongoDB (Local or Atlas)
@@ -129,7 +131,7 @@ npm start
 
 Frontend runs at: `http://localhost:3000`
 
-## 🚀 Deployment
+##  Deployment
 
 - Frontend deployed on **Vercel**
 - Backend deployed on **Render**
