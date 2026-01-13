@@ -16,9 +16,9 @@ import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import SentimentVerySatisfiedIcon from '@mui/icons-material/SentimentVerySatisfied';
-import server from '../environment';
+import { API_URL } from '../config';
 
-const server_url = server;
+const server_url = API_URL;
 
 var connections = {};
 
