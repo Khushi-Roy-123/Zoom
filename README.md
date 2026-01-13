@@ -5,6 +5,7 @@ This project was built as a hands-on learning initiative to deeply understand fu
 A modern Zoom-like video conferencing platform that enables users to connect through high-quality video/audio, real-time interactions, and a premium dark glassmorphism UI.
 
 ##  Live Demo
+ ![App Preview](./landing_preview.png)
 
 ###  Frontend (Vercel)
 
