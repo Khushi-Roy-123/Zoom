@@ -62,6 +62,9 @@ export default function VideoMeetComponent() {
     const videoRef = useRef([])
 
     let [videos, setVideos] = useState([])
+
+    // Store username mapping { [socketId]: username }
+    const [usernameMap, setUsernameMap] = useState({});
     
     // Interactions State
     const [handRaised, setHandRaised] = useState(false);
@@ -120,8 +123,6 @@ export default function VideoMeetComponent() {
     // Media is acquired once in getPermissions.
 
     let getMedia = () => {
-        setVideo(videoAvailable);
-        setAudio(audioAvailable);
         connectToSocketServer();
     }
 
@@ -257,7 +258,8 @@ export default function VideoMeetComponent() {
         socketRef.current.on('signal', gotMessageFromServer)
 
         socketRef.current.on('connect', () => {
-            socketRef.current.emit('join-call', window.location.href)
+            // Updated to send username
+            socketRef.current.emit('join-call', window.location.href, username)
             socketIdRef.current = socketRef.current.id
 
             socketRef.current.on('chat-message', addMessage)
@@ -268,7 +270,10 @@ export default function VideoMeetComponent() {
 
             socketRef.current.on('meeting-interaction', handleInteraction)
 
-            socketRef.current.on('user-joined', (id, clients) => {
+            socketRef.current.on('user-joined', (id, clients, users) => {
+                // Update username map
+                if (users) setUsernameMap(users);
+
                 clients.forEach((socketListId) => {
 
                     connections[socketListId] = new RTCPeerConnection(peerConfigConnections)
@@ -497,7 +502,12 @@ export default function VideoMeetComponent() {
                     }}>
                        <Typography variant="h4" fontWeight="bold" sx={{ color: 'white' }}>Join Lobby</Typography>
                        <Box sx={{ width: '100%', height: '250px', bgcolor: '#000', borderRadius: 2, overflow: 'hidden', position: 'relative', border: '1px solid rgba(255,255,255,0.2)' }}>
-                            <video ref={localVideoref} autoPlay muted style={{ width: '100%', height: '100%', objectFit: 'cover' }}></video>
+                            <video ref={(node) => {
+                                localVideoref.current = node;
+                                if (node && window.localStream) {
+                                    node.srcObject = window.localStream;
+                                }
+                            }} autoPlay muted style={{ width: '100%', height: '100%', objectFit: 'cover' }}></video>
                             
                             <Box sx={{ position: 'absolute', bottom: 10, left: '50%', transform: 'translateX(-50%)', display: 'flex', gap: 2 }}>
                                 <IconButton onClick={handleVideo} sx={{ color: 'white', bgcolor: !video ? 'error.main' : 'rgba(255,255,255,0.2)', '&:hover': { bgcolor: !video ? 'error.dark' : 'rgba(255,255,255,0.4)' } }}>
@@ -531,8 +541,31 @@ export default function VideoMeetComponent() {
                             {/* Local Video - Always Present */}
                              <Grid item xs={12} sm={videos.length > 0 ? 4 : 12} md={videos.length > 0 ? 3 : 8} sx={{ height: videos.length === 0 ? '80%' : 'auto' }}>
                                  <Paper sx={{ width: '100%', height: '100%', overflow: 'hidden', borderRadius: 2, position: 'relative', bgcolor: '#000' }}>
-                                    <video ref={localVideoref} autoPlay muted style={{ width: '100%', height: '100%', objectFit: 'cover' }}></video>
-                                    <Typography variant="caption" sx={{ position: 'absolute', bottom: 10, left: 10, bgcolor: 'rgba(0,0,0,0.5)', px: 1, borderRadius: 1 }}>You</Typography>
+                                    <video ref={(node) => {
+                                        localVideoref.current = node;
+                                        if (node && window.localStream) {
+                                            node.srcObject = window.localStream;
+                                        }
+                                    }} autoPlay muted style={{ width: '100%', height: '100%', objectFit: 'cover' }}></video>
+                                    
+                                    {/* Username Label */}
+                                    <Box sx={{ 
+                                        position: 'absolute', 
+                                        bottom: 10, 
+                                        left: 10, 
+                                        bgcolor: 'rgba(0,0,0,0.6)', 
+                                        backdropFilter: 'blur(4px)',
+                                        px: 1.5, 
+                                        py: 0.5,
+                                        borderRadius: 1,
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: 1
+                                    }}>
+                                        <Typography variant="subtitle2" sx={{ color: 'white', fontWeight: 500 }}>
+                                            {username} (You)
+                                        </Typography>
+                                    </Box>
                                     
                                     {/* Interaction Overlay Local */}
                                     {activeInteractions[socketIdRef.current] && (
@@ -559,6 +592,25 @@ export default function VideoMeetComponent() {
                                             autoPlay
                                             style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                                         />
+
+                                        {/* Username Label */}
+                                        <Box sx={{ 
+                                            position: 'absolute', 
+                                            bottom: 10, 
+                                            left: 10, 
+                                            bgcolor: 'rgba(0,0,0,0.6)', 
+                                            backdropFilter: 'blur(4px)',
+                                            px: 1.5, 
+                                            py: 0.5,
+                                            borderRadius: 1,
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            gap: 1
+                                        }}>
+                                            <Typography variant="subtitle2" sx={{ color: 'white', fontWeight: 500 }}>
+                                                {usernameMap[video.socketId] || 'Guest'}
+                                            </Typography>
+                                        </Box>
                                         
                                         {/* Interaction Overlay Remote */}
                                         {activeInteractions[video.socketId] && (
@@ -580,12 +632,20 @@ export default function VideoMeetComponent() {
                             left: '50%',
                             transform: 'translateX(-50%)',
                             display: 'flex',
-                            gap: 2,
-                            bgcolor: 'rgba(255, 255, 255, 0.1)',
-                            backdropFilter: 'blur(10px)',
-                            p: 2,
+                            gap: 3,
+                            bgcolor: 'rgba(20, 20, 20, 0.6)',
+                            backdropFilter: 'blur(15px)',
+                            px: 4,
+                            py: 1.5,
                             borderRadius: '50px',
-                            border: '1px solid rgba(255, 255, 255, 0.1)'
+                            border: '1px solid rgba(255, 255, 255, 0.08)',
+                            boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.3)',
+                            transition: 'all 0.3s ease',
+                            '&:hover': {
+                                bgcolor: 'rgba(20, 20, 20, 0.8)',
+                                transform: 'translateX(-50%) translateY(-2px)',
+                                boxShadow: '0 12px 40px 0 rgba(0, 0, 0, 0.4)'
+                            }
                          }}>
                              <IconButton onClick={handleVideo} sx={{ color: 'white', bgcolor: !video ? 'error.main' : 'rgba(255,255,255,0.1)' }}>
                                  {video ? <VideocamIcon /> : <VideocamOffIcon />}

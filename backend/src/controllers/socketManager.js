@@ -16,26 +16,29 @@ export const connectToSocket = (server) => {
     });
 
 
+    // Track users locally
+    let users = {};
+
     io.on("connection", (socket) => {
 
         console.log("SOMETHING CONNECTED")
 
-        socket.on("join-call", (path) => {
+        socket.on("join-call", (path, userName) => {
 
             if (connections[path] === undefined) {
                 connections[path] = []
             }
             connections[path].push(socket.id)
+            
+            // Store username
+            users[socket.id] = userName;
 
             timeOnline[socket.id] = new Date();
 
-            // connections[path].forEach(elem => {
-            //     io.to(elem)
-            // })
-
-            for (let a = 0; a < connections[path].length; a++) {
-                io.to(connections[path][a]).emit("user-joined", socket.id, connections[path])
-            }
+            // Broadcast to everyone in the room
+            connections[path].forEach(socketId => {
+                io.to(socketId).emit("user-joined", socket.id, connections[path], users)
+            })
 
             if (messages[path] !== undefined) {
                 for (let a = 0; a < messages[path].length; ++a) {
@@ -123,8 +126,10 @@ export const connectToSocket = (server) => {
                 }
 
             }
-
-
+            
+            // Cleanup username
+            delete users[socket.id];
+            
         })
 
 
