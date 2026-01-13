@@ -1,4 +1,4 @@
-# ⚠️ Learning Project
+# Zoom Clone
 
 This project was built as a hands-on learning initiative to deeply understand full-stack development, real-time communication, WebRTC, and production deployment workflows.
 
