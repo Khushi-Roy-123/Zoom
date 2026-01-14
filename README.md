@@ -4,17 +4,6 @@ This project was built as a hands-on learning initiative to deeply understand fu
 
 A modern Zoom-like video conferencing platform that enables users to connect through high-quality video/audio, real-time interactions, and a premium dark glassmorphism UI.
 
-##  Live Demo
-###  Frontend (Vercel)
-
-👉 [https://zoom-idqf-hf6digmrn-khushi-roys-projects-81ea4e18.vercel.app/](https://zoom-idqf-hf6digmrn-khushi-roys-projects-81ea4e18.vercel.app/)
-
-### ⚙️ Backend (Render)
-
-👉 [https://zoom-2-bnqp.onrender.com](https://zoom-2-bnqp.onrender.com)
-
-_(Backend may take a few seconds to wake up on first request due to free-tier hosting)_
-
 ##  Preview
 
 ![App Preview](./landing_preview.png)
