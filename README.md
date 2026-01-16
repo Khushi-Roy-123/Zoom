@@ -33,9 +33,6 @@ A modern Zoom-like video conferencing platform that enables users to connect thr
 
 - **HD Video & Audio Calls**
 - **Real-Time Peer-to-Peer Communication**
-- **Raise Hand & Emoji Reactions**
-- **Screen Sharing**
-- **Secure Authentication**
 - **Premium Dark UI with Glassmorphism**
 - **Fully Responsive Design**
 
