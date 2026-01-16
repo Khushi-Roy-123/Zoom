@@ -103,9 +103,8 @@ export default function LandingPage() {
                 </Box>
                 
                 <Box sx={{ display: 'flex', gap: 2 }}>
-                    <Button color="inherit" onClick={() => router("/aljk23")}>Join Guest</Button>
-                    <Button color="inherit" component={RouterLink} to="/auth">Login</Button>
-                    <Button variant="contained" component={RouterLink} to="/auth">Sign Up</Button>
+                    <Button color="inherit" onClick={() => router("/aljk23")}>Join as Guest</Button>
+                    <Button variant="contained" onClick={() => router("/home")}>Get Started</Button>
                 </Box>
             </Box>
 
@@ -127,7 +126,7 @@ export default function LandingPage() {
                         </Typography>
                         
                         <Box sx={{ display: 'flex', gap: 2 }}>
-                            <Button variant="contained" size="large" onClick={() => router("/auth")} sx={{ px: 4, py: 1.5, fontSize: '1.1rem' }}>
+                            <Button variant="contained" size="large" onClick={() => router("/home")} sx={{ px: 4, py: 1.5, fontSize: '1.1rem' }}>
                                 Get Started
                             </Button>
                             <Button variant="outlined" size="large" sx={{ borderColor: 'rgba(255,255,255,0.3)', color: 'white', px: 4, py: 1.5 }}>
@@ -209,8 +208,8 @@ export default function LandingPage() {
                     <Grid item xs={12} md={4}>
                         <Box component={motion.div} initial={{ scale: 0.8, opacity: 0 }} whileInView={{ scale: 1, opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.2 }} sx={{ position: 'relative', p: 3 }}>
                             <Typography variant="h1" sx={{ color: 'rgba(108, 99, 255, 0.2)', fontWeight: 900 }}>01</Typography>
-                            <Typography variant="h5" fontWeight="bold" sx={{ mt: -3, position: 'relative' }}>Create Account</Typography>
-                            <Typography color="text.secondary" sx={{ mt: 2 }}>Sign up for free in seconds. No credit card required.</Typography>
+                            <Typography variant="h5" fontWeight="bold" sx={{ mt: -3, position: 'relative' }}>Open Dashboard</Typography>
+                            <Typography color="text.secondary" sx={{ mt: 2 }}>Access the dashboard instantly. No signup required.</Typography>
                         </Box>
                     </Grid>
                     <Grid item xs={12} md={4}>

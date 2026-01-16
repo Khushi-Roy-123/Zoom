@@ -1,32 +1,25 @@
-import React, { useContext, useState, useEffect } from 'react';
-import withAuth from '../utils/withAuth';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button, TextField, Box, Container, Grid, Typography, Paper, IconButton, Divider, List, ListItem, ListItemText, ListItemAvatar, Avatar } from '@mui/material';
-import RestoreIcon from '@mui/icons-material/Restore';
+import { Button, TextField, Box, Container, Grid, Typography, Paper } from '@mui/material';
 import MeetingRoomIcon from '@mui/icons-material/MeetingRoom';
 import AddBoxIcon from '@mui/icons-material/AddBox';
-import LogoutIcon from '@mui/icons-material/Logout';
 import VideoCallIcon from '@mui/icons-material/VideoCall';
 import HistoryIcon from '@mui/icons-material/History';
-import { AuthContext } from '../contexts/AuthContext';
 
 import { motion } from 'framer-motion';
 
 function HomeComponent() {
     let navigate = useNavigate();
     const [meetingCode, setMeetingCode] = useState("");
-    const { addToUserHistory } = useContext(AuthContext);
 
     let handleJoinVideoCall = async () => {
         if (meetingCode.trim().length > 0) {
-            await addToUserHistory(meetingCode);
             navigate(`/${meetingCode}`);
         }
     };
 
     let StartNewMeeting = async () => {
          const randomCode = Math.random().toString(36).substring(2, 7);
-         await addToUserHistory(randomCode);
          navigate(`/${randomCode}`)
     }
 
@@ -75,16 +68,6 @@ function HomeComponent() {
                         color="inherit"
                     >
                         History
-                    </Button>
-                    <Button 
-                        startIcon={<LogoutIcon />} 
-                        onClick={() => {
-                            localStorage.removeItem("token");
-                            navigate("/auth");
-                        }}
-                        color="error"
-                    >
-                        Logout
                     </Button>
                 </Box>
             </Box>
@@ -166,4 +149,4 @@ function HomeComponent() {
     )
 }
 
-export default withAuth(HomeComponent)
+export default HomeComponent
