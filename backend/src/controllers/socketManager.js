@@ -8,7 +8,7 @@ let timeOnline = {}
 export const connectToSocket = (server) => {
     const io = new Server(server, {
         cors: {
-            origin: "*",
+            origin: process.env.CORS_ORIGIN || "*",
             methods: ["GET", "POST"],
             allowedHeaders: ["*"],
             credentials: true
@@ -24,6 +24,8 @@ export const connectToSocket = (server) => {
         console.log("SOMETHING CONNECTED")
 
         socket.on("join-call", (path, userName) => {
+
+            socket.join(path);
 
             if (connections[path] === undefined) {
                 connections[path] = []
@@ -102,16 +104,13 @@ export const connectToSocket = (server) => {
 
             var diffTime = Math.abs(timeOnline[socket.id] - new Date())
 
-            var key
+            for (const [key, value] of Object.entries(connections)) {
 
-            for (const [k, v] of JSON.parse(JSON.stringify(Object.entries(connections)))) {
+                for (let a = 0; a < value.length; ++a) {
+                    if (value[a] === socket.id) {
 
-                for (let a = 0; a < v.length; ++a) {
-                    if (v[a] === socket.id) {
-                        key = k
-
-                        for (let a = 0; a < connections[key].length; ++a) {
-                            io.to(connections[key][a]).emit('user-left', socket.id)
+                        for (let b = 0; b < connections[key].length; ++b) {
+                            io.to(connections[key][b]).emit('user-left', socket.id)
                         }
 
                         var index = connections[key].indexOf(socket.id)
