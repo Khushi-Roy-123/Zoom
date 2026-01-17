@@ -12,14 +12,16 @@ const server = createServer(app);
 const io = connectToSocket(server);
 
 app.set("port", process.env.PORT || 8000);
-app.use(cors());
+app.use(cors({
+    origin: process.env.CORS_ORIGIN || "*"
+}));
 app.use(express.json({ limit: "40kb" }));
 app.use(express.urlencoded({ limit: "40kb", extended: true }));
 
 const start = async () => {
     // Start server first
     server.listen(app.get("port"), () => {
-        console.log("✅ Server listening on PORT 8000");
+        console.log("✅ Server listening on PORT " + app.get("port"));
     });
 
     // Then try to connect to MongoDB
